@@ -107,8 +107,7 @@
       top: -2px;
       left: -2px;
       right: -2px;
-      bottom: -2px;
-      /* Reverted to a static border glow on hover */
+      bottom: -2px; /* Reverted to a static border glow on hover */
       background: linear-gradient(45deg,
         rgba(0, 255, 255, 0) 0%,
         rgba(0, 255, 255, 0.5) 50%, /* More prominent static glow */
@@ -120,8 +119,7 @@
     }
 
     .section:hover::before {
-      opacity: 1;
-      /* No shine animation here */
+      opacity: 1; /* No shine animation here */
     }
 
     .section h1 {
@@ -370,100 +368,48 @@
       box-shadow: 0 5px 20px rgba(85, 85, 85, 0.8);
     }
 
-    /* Thumbnail Section - Larger, 16:9, Auto+Manual Scroll */
-    .thumbnail-section {
-      margin: 50px 0;
-      animation: slideUp 0.8s ease-out 0.3s both;
+    /* New Thumbnail Button Section */
+    .view-thumbnail-section {
+        margin: 50px 0;
+        text-align: center;
+        animation: slideUp 0.8s ease-out 0.3s both;
     }
 
-    .thumbnail-viewer {
-      --thumbnail-base-height: 400px; /* Base height for thumbnails */
-      width: 100%; /* Take full width of container */
-      overflow-x: auto; /* Enable horizontal scrolling */
-      overflow-y: hidden; /* Hide vertical overflow */
-      white-space: nowrap; /* Prevent items from wrapping */
-      position: relative;
-      height: calc(var(--thumbnail-base-height) + 60px); /* Base height + padding */
-      min-height: 350px; /* Minimum height for small screens */
-      max-height: 800px; /* Increased maximum height */
-
-      border-radius: 15px;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 30px; /* Increased padding */
-      scroll-behavior: smooth; /* Smooth scrolling for manual actions */
-      -webkit-overflow-scrolling: touch; /* Enhance scrolling on iOS */
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-      cursor: grab; /* Indicate draggable */
-    }
-    .thumbnail-viewer:active {
-        cursor: grabbing; /* Indicate dragging */
-    }
-    /* Hide scrollbar for aesthetic purposes */
-    .thumbnail-viewer::-webkit-scrollbar {
-        display: none; /* For Chrome, Safari, and Opera */
-    }
-    .thumbnail-viewer {
-        -ms-overflow-style: none;  /* For Internet Explorer and Edge */
-        scrollbar-width: none;  /* For Firefox */
+    .view-thumbnail-section h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+        text-shadow: 0 0 5px cyan;
     }
 
-    .thumbnail-track {
-      display: inline-flex; /* Use inline-flex for horizontal items */
-      height: 100%;
-      animation: autoScrollThumbnails linear infinite; /* Auto-scroll animation */
-      animation-play-state: running; /* Initially running */
+    .view-thumbnail-btn {
+        display: inline-block;
+        padding: 18px 40px; /* Larger padding for a prominent button */
+        background: cyan;
+        color: #0a0f1b; /* Dark text for cyan background */
+        border-radius: 10px;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 1.2rem; /* Larger font size */
+        box-shadow: 0 0 20px cyan, 0 0 30px rgba(0, 255, 255, 0.5); /* Stronger glow */
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        position: relative;
+        overflow: hidden;
+        border: none;
+        cursor: pointer;
+        font-family: 'Orbitron', sans-serif;
+        z-index: 1;
     }
 
-    .thumbnail-viewer.paused .thumbnail-track {
-      animation-play-state: paused; /* Pause animation on hover/drag */
+    .view-thumbnail-btn:hover {
+        box-shadow: 0 0 35px cyan, inset 0 0 20px rgba(255, 255, 255, 0.5);
+        transform: translateY(-5px); /* More pronounced hover effect */
     }
 
-    .thumbnail-item {
-      flex-shrink: 0;
-      height: var(--thumbnail-base-height); /* Fixed height from CSS variable */
-      width: calc(var(--thumbnail-base-height) * 16 / 9); /* Calculate width to maintain 16:9 ratio */
-      max-width: 900px; /* Control individual thumbnail max width */
-
-      margin: 0 40px; /* Increased spacing between thumbnails */
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3); /* Slightly stronger default glow */
-      transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Faster transition */
-      cursor: pointer;
-      position: relative;
+    .view-thumbnail-btn:active {
+        transform: translateY(1px);
     }
 
-    .thumbnail-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .thumbnail-item:hover {
-      transform: translateY(-10px) scale(1.05); /* More pronounced hover effect */
-      box-shadow: 0 0 40px cyan; /* Stronger hover glow */
-    }
-
-    /* Auto-scroll keyframes (dynamic length will be set by JS) */
-    @keyframes autoScrollThumbnails {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); } /* Placeholder, actual value set by JS */
-    }
-
-    .thumbnail-details {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 1.2rem;
-      color: cyan;
-      min-height: 40px;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-
-    .thumbnail-details.visible {
-      opacity: 1;
-    }
 
     /* Contact Card Styles */
     .contact-card-section {
@@ -639,24 +585,11 @@
         margin: 15px 5px 0;
       }
 
-      .thumbnail-viewer {
-        /* Adjusted for mobile: width to full container, calculate larger 16:9 height */
-        --thumbnail-base-height: 200px; /* Smaller base height on mobile */
-        height: calc(var(--thumbnail-base-height) + 30px); /* Height + padding */
-        min-height: 200px;
-        max-height: 400px;
-        padding: 15px;
+      .view-thumbnail-btn {
+          padding: 14px 28px;
+          font-size: 1rem;
       }
 
-      .thumbnail-item {
-        height: var(--thumbnail-base-height);
-        width: calc(var(--thumbnail-base-height) * 16 / 9); /* Maintain 16:9 based on item's height */
-        max-width: none; /* Remove max-width on mobile for better fitting */
-        margin: 0 15px; /* Adjust spacing for mobile */
-      }
-      .thumbnail-details {
-        font-size: 1rem;
-      }
 
       .contact-card {
           padding: 40px;
@@ -688,7 +621,7 @@
   </style>
 </head>
 <body>
-  <img src="profile.jpg" alt="Fahad's Profile" class="profile-pic" id="profilePic">
+  <img src="images/profile.jpg" alt="Fahad's Profile" class="profile-pic" id="profilePic">
 
   <canvas id="canvas"></canvas>
 
@@ -730,7 +663,8 @@
       </ul>
     </div>
 
-    <div class="section" id="myWorkSection"><div class="glow-follow"></div> <h1>My Work</h1>
+    <div class="section" id="myWorkSection"><div class="glow-follow"></div>
+      <h1>My Work</h1>
       <span class="underline"></span>
 
       <div class="video-section">
@@ -755,19 +689,17 @@
         </div>
       </div>
 
-      <div class="thumbnail-section">
+      <div class="view-thumbnail-section">
         <h2>My Thumbnail Designs</h2>
-        <div class="thumbnail-viewer" id="thumbnail-viewer">
-          <div class="thumbnail-track" id="thumbnail-track">
-            </div>
-        </div>
-        <div class="thumbnail-details" id="thumbnail-details"></div>
+        <a href="https://example.com/your-thumbnail-gallery" target="_blank" class="view-thumbnail-btn">VIEW THUMBNAIL</a>
       </div>
+
     </div>
 
     <div class="section contact-card-section"><div class="glow-follow"></div>
       <h2>Contact Me</h2>
-      <span class="underline"></span> <div class="contact-card">
+      <span class="underline"></span>
+      <div class="contact-card">
         <img src="newprofile.jpg" alt="Fahad Malik" class="contact-card-img">
         <h3>FAHAD MALIK</h3>
         <p>EDITOR | VFX & CGI ARTIST | THUMBNAIL DESIGNER</p>
@@ -775,7 +707,7 @@
           <a href="https://www.instagram.com/your_instagram_id" target="_blank" class="social-btn">
             <i class="fab fa-instagram"></i>
           </a>
-          <a href="https://www.youtube.com/watch?v=H1yw3d1tx7Q" target="_blank" class="social-btn">
+          <a href="https://www.youtube.com/@youtube" target="_blank" class="social-btn">
             <i class="fab fa-youtube"></i>
           </a>
           <a href="https://t.me/hadoxfahad" target="_blank" class="social-btn">
@@ -785,34 +717,25 @@
       </div>
     </div>
 
-    </div>
+  </div>
 
   <script>
-    // --- Data for Carousels and Thumbnails ---
+    // --- Data for Carousels ---
+    // IMPORTANT: Replace these with YOUR ACTUAL YOUTUBE EMBED URLs!
+    // To get an embed URL: Go to your YouTube video -> Share -> Embed -> Copy the 'src' value from the iframe.
+    // Example generic embed URL for demonstration: https://www.youtube.com/embed/dQw4w9WgXcQ (Rick Astley - Never Gonna Give You Up)
+    const genericEmbedUrl = "https://www.youtube.com/embed/dQw4w9WgXcQ";
+
     const longformVideos = [
-      "https://www.youtube.com/watch?v=CMEO5lllZXU", // Replace with your actual video embeds
-      "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&mute=16",
-      "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&mute=17",
-      "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&mute=18"
+      genericEmbedUrl, genericEmbedUrl, genericEmbedUrl, genericEmbedUrl,
+      genericEmbedUrl, genericEmbedUrl, genericEmbedUrl, genericEmbedUrl,
+      genericEmbedUrl, genericEmbedUrl // 10 video cards
     ];
 
     const shortsVideos = [
-      "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&mute=19", // Example: Replace with a YouTube Shorts playlist or individual short links
-      "https://www.youtube.com/embed/2-oFz2_v3Q4?autoplay=0&mute=10",
-      "https://www.youtube.com/embed/2-oFz2_v3Q4?autoplay=0&mute=11",
-      "https://www.youtube.com/embed/2-oFz2_v3Q4?autoplay=0&mute=12",
-      "https://www.youtube.com/embed/2-oFz2_v3Q4?autoplay=0&mute=13"
+      genericEmbedUrl, genericEmbedUrl, genericEmbedUrl, genericEmbedUrl,
+      genericEmbedUrl // 5 video cards (you can add more if needed)
     ];
-
-    // **IMPORTANT**: Replace these with your actual thumbnail image URLs and descriptions!
-    const thumbnailsData = [];
-    for (let i = 1; i <= 50; i++) {
-        // Using a 16:9 aspect ratio placeholder (e.g., 800x450). This should match your actual thumbnails.
-        thumbnailsData.push({
-            src: `https://via.placeholder.com/800x450/8A2BE2/FFFFFF?text=Thumbnail+${i}`, // Example placeholder, adjust size as needed
-            details: `Details for Thumbnail ${i}: This is a description of the ${i}th thumbnail design. It showcases various design elements and effects.`
-        });
-    }
 
 
     // --- Floating Profile Picture ---
@@ -823,14 +746,12 @@
       isFlipped = !isFlipped;
       profilePic.classList.toggle('flip', isFlipped);
     });
-
     // --- Particle Background ---
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     let w = canvas.width = window.innerWidth;
     let h = canvas.height = window.innerHeight;
     let particles = [];
-
     function resizeCanvas() {
       w = canvas.width = window.innerWidth;
       h = canvas.height = window.innerHeight;
@@ -850,7 +771,6 @@
 
     function animateParticles() {
       ctx.clearRect(0, 0, w, h);
-
       if (Math.random() < 0.2) {
         createParticle(
           Math.random() * w,
@@ -888,6 +808,7 @@
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
         const angle = Math.atan2(y - centerY, x - centerX);
+        
         const distance = Math.min(
           Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2)),
           rect.width / 2
@@ -911,21 +832,18 @@
         glow.classList.remove('visible');
         card.classList.remove('edge-glow');
       });
-
       card.addEventListener('touchstart', (e) => {
         if (e.touches.length > 0) {
           const touch = e.touches[0];
           updateGlow(touch.clientX, touch.clientY);
         }
       });
-
       card.addEventListener('touchmove', (e) => {
         if (e.touches.length > 0) {
           const touch = e.touches[0];
           updateGlow(touch.clientX, touch.clientY);
         }
       });
-
       card.addEventListener('touchend', () => {
         glow.classList.remove('visible');
         card.classList.remove('edge-glow');
@@ -935,18 +853,24 @@
     // --- Video Carousels Functionality ---
     function setupCarousel(videoLinks, cardsListId, prevBtnId, nextBtnId) {
       const cardsList = document.getElementById(cardsListId);
+      cardsList.innerHTML = ''; // Clear existing content to prevent duplicates
       videoLinks.forEach((link, index) => {
         const li = document.createElement("li");
-        li.innerHTML = `<iframe src="${link}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        // Add modest branding and controls, autoplay disabled for better user experience
+        li.innerHTML = `<iframe src="${link}?controls=1&modestbranding=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
         cardsList.appendChild(li);
 
         setTimeout(() => {
           li.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         }, index * 100);
       });
-
       const cards = cardsList.querySelectorAll('li');
-      let current = 1;
+      // Set initial current to 0 (first video)
+      let current = 0; 
+      if (cards.length > 0) {
+          current = Math.min(1, cards.length -1); // If there are at least 2 videos, start with the second, otherwise the first
+      }
+
 
       function updateCarousel() {
         cards.forEach((card, index) => {
@@ -965,193 +889,16 @@
         if (current > 0) current--;
         updateCarousel();
       });
-
       document.getElementById(nextBtnId).addEventListener('click', () => {
         if (current < cards.length - 1) current++;
         updateCarousel();
       });
+      
+      // Initial update to show the first video correctly
+      updateCarousel();
 
-      return updateCarousel;
+      return updateCarousel; // Return the function if you need to call it externally
     }
-
-    // --- Thumbnail Viewer Functionality (Auto + Manual Scroll) ---
-    const thumbnailTrack = document.getElementById('thumbnail-track');
-    const thumbnailViewer = document.getElementById('thumbnail-viewer');
-    const thumbnailDetails = document.getElementById('thumbnail-details');
-    let autoScrollTimeout; // For pausing auto-scroll after interaction
-
-    let isDragging = false;
-    let startX;
-    let scrollLeftOnDragStart;
-    let autoScrollSpeed = 4.0; // Speed for auto-scroll (pixels per second)
-
-    function populateThumbnails() {
-      thumbnailTrack.innerHTML = ''; // Clear existing content
-      thumbnailsData.forEach((thumb, index) => {
-        const thumbItem = document.createElement('div');
-        thumbItem.classList.add('thumbnail-item');
-        thumbItem.dataset.details = thumb.details;
-        thumbItem.innerHTML = `<img src="${thumb.src}" alt="Thumbnail ${index + 1}">`;
-
-        thumbItem.addEventListener('click', (e) => {
-          // Check if it was a drag, not just a click
-          // We attach a flag during dragging to prevent click events from firing immediately after a drag
-          if (e.target.closest('.thumbnail-item').dataset.dragged === 'true') {
-              delete e.target.closest('.thumbnail-item').dataset.dragged; // Reset flag
-              return; // Don't trigger details if it was a drag
-          }
-          showThumbnailDetails(thumb.details);
-          pauseAutoScrollForInteraction(); // Pause auto-scroll on click
-        });
-        thumbnailTrack.appendChild(thumbItem);
-      });
-
-      // After original elements are added and rendered, calculate their actual width.
-      // Use setTimeout with 0 to ensure elements are rendered before calculating width.
-      setTimeout(() => {
-        let totalOriginalWidth = 0;
-        // Calculate width of *original* set of items
-        for (let i = 0; i < thumbnailsData.length; i++) {
-            const item = thumbnailTrack.children[i];
-            if (item) { // Ensure item exists
-                const itemMarginRight = parseFloat(getComputedStyle(item).marginRight);
-                totalOriginalWidth += item.offsetWidth + itemMarginRight;
-            }
-        }
-
-        // Clone items to create a seamless loop.
-        // We need enough clones to fill the viewer and extend beyond to allow for smooth looping.
-        const numClonesNeeded = Math.ceil(thumbnailViewer.offsetWidth / (thumbnailTrack.children[0].offsetWidth + parseFloat(getComputedStyle(thumbnailTrack.children[0]).marginRight))) + thumbnailsData.length + 2; 
-
-        for (let i = 0; i < numClonesNeeded; i++) {
-            const originalIndex = i % thumbnailsData.length;
-            if (thumbnailTrack.children[originalIndex]) { // Ensure original item exists
-                const clone = thumbnailTrack.children[originalIndex].cloneNode(true);
-                clone.removeEventListener('click', () => {}); // Ensure no duplicate listeners
-                thumbnailTrack.appendChild(clone);
-            }
-        }
-        
-        // Update the CSS animation with the correct total width
-        const styleSheet = document.styleSheets[0];
-        // Remove existing keyframes rule if it exists to update it
-        for (let i = 0; i < styleSheet.cssRules.length; i++) {
-          if (styleSheet.cssRules[i] && styleSheet.cssRules[i].name === 'autoScrollThumbnails') {
-            styleSheet.deleteRule(i);
-            break;
-          }
-        }
-
-        const animationDuration = totalOriginalWidth / autoScrollSpeed; // Duration in seconds
-        const keyframesRule = `@keyframes autoScrollThumbnails {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-${totalOriginalWidth}px); }
-        }`;
-        styleSheet.insertRule(keyframesRule, styleSheet.cssRules.length);
-        thumbnailTrack.style.animationDuration = `${animationDuration}s`;
-
-        // Start auto-scroll after population is complete and animation duration is set
-        resumeAutoScroll();
-      }, 0); // Use setTimeout(0) to ensure DOM is updated after appending elements
-    }
-
-    function showThumbnailDetails(details) {
-        thumbnailDetails.textContent = details;
-        thumbnailDetails.classList.add('visible');
-        clearTimeout(autoScrollTimeout); // Clear any existing timeout for auto-resume
-        autoScrollTimeout = setTimeout(() => {
-            thumbnailDetails.classList.remove('visible');
-            thumbnailDetails.textContent = ''; // Clear text after fading out
-        }, 2000); // Display for 2 seconds
-    }
-
-    function pauseAutoScrollForInteraction() {
-        thumbnailViewer.classList.add('paused'); // Add class to pause CSS animation
-        clearTimeout(autoScrollTimeout); // Clear any previous auto-resume timer
-    }
-
-    function resumeAutoScroll() {
-        thumbnailViewer.classList.remove('paused');
-        // Clear thumbnail details if they are still visible
-        thumbnailDetails.classList.remove('visible');
-        thumbnailDetails.textContent = '';
-    }
-
-    // Event listeners for pausing/resuming auto-scroll
-    thumbnailViewer.addEventListener('mouseenter', pauseAutoScrollForInteraction);
-    thumbnailViewer.addEventListener('mouseleave', () => {
-        if (!isDragging) { // Only resume if not currently dragging
-            clearTimeout(autoScrollTimeout); // Clear any existing
-            autoScrollTimeout = setTimeout(resumeAutoScroll, 2000); // Resume after 2s of no hover
-        }
-    });
-
-    // Manual Scroll / Dragging functionality
-    thumbnailViewer.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        thumbnailViewer.classList.add('active'); // Indicate dragging state
-        startX = e.pageX - thumbnailViewer.offsetLeft;
-        scrollLeftOnDragStart = thumbnailViewer.scrollLeft;
-        pauseAutoScrollForInteraction(); // Pause auto-scroll when starting drag
-        // Prevent default to avoid image dragging behavior on some browsers
-        e.preventDefault();
-    });
-
-    thumbnailViewer.addEventListener('mouseup', (e) => {
-        isDragging = false;
-        thumbnailViewer.classList.remove('active');
-        // Check if mouse moved significantly to count as a drag
-        const movedDistance = Math.abs(e.pageX - (startX + thumbnailViewer.offsetLeft));
-        if (movedDistance > 5) { // If mouse moved significantly, it was a drag
-            // Set a flag on the element that was clicked/dragged
-            // Use e.target.closest('.thumbnail-item') to ensure we get the thumbnail item itself
-            const clickedItem = e.target.closest('.thumbnail-item');
-            if (clickedItem) {
-                clickedItem.dataset.dragged = 'true';
-            }
-        }
-        clearTimeout(autoScrollTimeout); // Clear any existing
-        autoScrollTimeout = setTimeout(resumeAutoScroll, 2000); // Resume after 2s of no drag
-    });
-
-    thumbnailViewer.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        e.preventDefault();
-        const x = e.pageX - thumbnailViewer.offsetLeft;
-        const walk = (x - startX) * 1.8; // Increased drag sensitivity for faster manual swipe
-        thumbnailViewer.scrollLeft = scrollLeftOnDragStart - walk;
-    });
-
-    // Touch events for manual scrolling
-    thumbnailViewer.addEventListener('touchstart', (e) => {
-        isDragging = true;
-        startX = e.touches[0].pageX - thumbnailViewer.offsetLeft;
-        scrollLeftOnDragStart = thumbnailViewer.scrollLeft;
-        pauseAutoScrollForInteraction(); // Pause auto-scroll on touch start
-        e.preventDefault(); // Prevent default touch behavior (like scrolling the whole page)
-    });
-
-    thumbnailViewer.addEventListener('touchend', (e) => {
-        isDragging = false;
-        // Check if touch moved significantly to count as a drag
-        const movedDistance = Math.abs(e.changedTouches[0].pageX - (startX + thumbnailViewer.offsetLeft));
-        if (movedDistance > 5) {
-             const touchedItem = e.target.closest('.thumbnail-item');
-             if (touchedItem) {
-                touchedItem.dataset.dragged = 'true';
-             }
-        }
-        clearTimeout(autoScrollTimeout); // Clear any existing
-        autoScrollTimeout = setTimeout(resumeAutoScroll, 2000); // Resume after 2s of touch end
-    });
-
-    thumbnailViewer.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        const x = e.touches[0].pageX - thumbnailViewer.offsetLeft;
-        const walk = (x - startX) * 1.8; // Increased touch drag sensitivity
-        thumbnailViewer.scrollLeft = scrollLeftOnDragStart - walk;
-    });
-
 
     // Initial page load animations and setups
     window.addEventListener('load', () => {
@@ -1165,15 +912,10 @@
         );
       }
 
-      // Initialize carousels and thumbnails after a slight delay
+      // Initialize carousels after a slight delay
       setTimeout(() => {
-        const updateLongform = setupCarousel(longformVideos, 'longform-cards', 'longform-prev', 'longform-next');
-        const updateShorts = setupCarousel(shortsVideos, 'shorts-cards', 'shorts-prev', 'shorts-next');
-        updateLongform();
-        updateShorts();
-
-        // populateThumbnails will call resumeAutoScroll after rendering
-        populateThumbnails();
+        setupCarousel(longformVideos, 'longform-cards', 'longform-prev', 'longform-next');
+        setupCarousel(shortsVideos, 'shorts-cards', 'shorts-prev', 'shorts-next');
       }, 300);
     });
   </script>
