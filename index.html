@@ -255,7 +255,7 @@
       width: 100%;
       max-width: 800px;
       margin: 0 auto;
-      padding-bottom: 80px;
+      padding-bottom: 80px; /* Keep this for nav buttons */
     }
 
     .cards {
@@ -266,17 +266,20 @@
       padding: 0;
       margin: 0;
       position: relative;
-      height: 400px;
+      /* Adjusted height to fit 16:9 videos + padding */
+      height: calc(300px * 9 / 16 + 80px); /* Base width for cards is 300px */
     }
 
     .shorts-cards {
-      height: 355px;
+      /* Adjusted height to fit 9:16 videos + padding */
+      height: calc(200px * 16 / 9 + 80px); /* Base width for shorts cards is 200px */
     }
 
     .cards li {
       position: absolute;
-      width: 300px;
-      height: 100%;
+      width: 300px; /* Base width */
+      height: 0; /* Set height to 0 to use padding-bottom for aspect ratio */
+      padding-bottom: calc(300px * 9 / 16); /* 16:9 aspect ratio (height is 9/16 of width) */
       background: #000;
       border-radius: 15px;
       overflow: hidden;
@@ -289,10 +292,15 @@
     }
 
     .shorts-cards li {
-      width: 200px;
+      width: 200px; /* Base width for shorts */
+      height: 0; /* Set height to 0 for aspect ratio */
+      padding-bottom: calc(200px * 16 / 9); /* Example: 9:16 aspect ratio for shorts */
     }
 
     .cards li iframe {
+      position: absolute; /* Needed for padding-bottom trick */
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       border: none;
@@ -308,21 +316,22 @@
 
     .cards li.left, .cards li.right {
       opacity: 0.6;
-      transform: translateX(-330px) scale(0.8);
+      /* Adjusted translateX values for better spacing */
+      transform: translateX(-350px) scale(0.8); /* Increased distance for left card */
       z-index: 2;
       box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
     }
 
     .cards li.left {
-      transform: translateX(-230px) scale(0.8);
+      transform: translateX(-250px) scale(0.8); /* Slightly less for left, but still moved */
     }
 
     .cards li.right {
-      transform: translateX(330px) scale(0.8);
+      transform: translateX(350px) scale(0.8); /* Increased distance for right card */
     }
 
     .shorts-cards li.right {
-      transform: translateX(230px) scale(0.8);
+      transform: translateX(250px) scale(0.8); /* Adjusted for shorts */
     }
 
     .nav-buttons {
@@ -547,20 +556,22 @@
         font-size: 1.8rem;
       }
 
+      /* Responsive adjustments for video cards */
       .cards {
-        height: 220px;
+          height: calc(250px * 9 / 16 + 80px); /* Base width for cards is 250px on mobile */
       }
-
       .shorts-cards {
-        height: 180px;
+          height: calc(150px * 16 / 9 + 80px); /* Base width for shorts is 150px on mobile */
       }
 
       .cards li {
-        width: 180px;
+        width: 250px; /* Adjust base width for smaller screens */
+        padding-bottom: calc(250px * 9 / 16); /* Maintain 16:9 ratio */
       }
 
       .shorts-cards li {
-        width: 120px;
+        width: 150px; /* Adjust base width for shorts on smaller screens */
+        padding-bottom: calc(150px * 16 / 9); /* Maintain 9:16 ratio */
       }
 
       .cards li.left {
@@ -704,220 +715,4 @@
         <h3>FAHAD MALIK</h3>
         <p>EDITOR | VFX & CGI ARTIST | THUMBNAIL DESIGNER</p>
         <div class="social-links">
-          <a href="https://www.instagram.com/your_instagram_id" target="_blank" class="social-btn">
-            <i class="fab fa-instagram"></i>
-          </a>
-          <a href="https://www.youtube.com/@youtube" target="_blank" class="social-btn">
-            <i class="fab fa-youtube"></i>
-          </a>
-          <a href="https://t.me/hadoxfahad" target="_blank" class="social-btn">
-            <i class="fab fa-telegram-plane"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <script>
-    // --- Data for Carousels ---
-    // IMPORTANT: Replace these with YOUR ACTUAL YOUTUBE EMBED URLs!
-    // To get an embed URL: Go to your YouTube video -> Share -> Embed -> Copy the 'src' value from the iframe.
-    // Example generic embed URL for demonstration: https://www.youtube.com/embed/dQw4w9WgXcQ (Rick Astley - Never Gonna Give You Up)
-    const genericEmbedUrl = "https://www.youtube.com/embed/dQw4w9WgXcQ";
-
-    const longformVideos = [
-      genericEmbedUrl, genericEmbedUrl, genericEmbedUrl, genericEmbedUrl,
-      genericEmbedUrl, genericEmbedUrl, genericEmbedUrl, genericEmbedUrl,
-      genericEmbedUrl, genericEmbedUrl // 10 video cards
-    ];
-
-    const shortsVideos = [
-      genericEmbedUrl, genericEmbedUrl, genericEmbedUrl, genericEmbedUrl,
-      genericEmbedUrl // 5 video cards (you can add more if needed)
-    ];
-
-
-    // --- Floating Profile Picture ---
-    const profilePic = document.getElementById('profilePic');
-    let isFlipped = false;
-
-    profilePic.addEventListener('click', () => {
-      isFlipped = !isFlipped;
-      profilePic.classList.toggle('flip', isFlipped);
-    });
-    // --- Particle Background ---
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-    let w = canvas.width = window.innerWidth;
-    let h = canvas.height = window.innerHeight;
-    let particles = [];
-    function resizeCanvas() {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-
-    function createParticle(x, y) {
-      particles.push({
-        x, y,
-        alpha: 1,
-        radius: Math.random() * 3 + 1,
-        dx: Math.random() * 2 - 1,
-        dy: Math.random() * 2 - 1,
-        color: `hsla(${Math.random() * 60 + 180}, 100%, 50%, ${Math.random() * 0.5 + 0.3})`
-      });
-    }
-
-    function animateParticles() {
-      ctx.clearRect(0, 0, w, h);
-      if (Math.random() < 0.2) {
-        createParticle(
-          Math.random() * w,
-          Math.random() * h
-        );
-      }
-
-      for (let i = 0; i < particles.length; i++) {
-        let p = particles[i];
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = p.alpha;
-        ctx.fill();
-
-        p.x += p.dx;
-        p.y += p.dy;
-        p.alpha -= 0.003;
-
-        if (p.alpha <= 0) {
-          particles.splice(i, 1);
-          i--;
-        }
-      }
-
-      requestAnimationFrame(animateParticles);
-    }
-
-    // --- Glow hover/touch for all sections ---
-    document.querySelectorAll('.section').forEach(card => {
-      const glow = card.querySelector('.glow-follow');
-
-      function updateGlow(x, y) {
-        const rect = card.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const angle = Math.atan2(y - centerY, x - centerX);
-        
-        const distance = Math.min(
-          Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2)),
-          rect.width / 2
-        );
-
-        const glowX = centerX + Math.cos(angle) * distance * 0.8;
-        const glowY = centerY + Math.sin(angle) * distance * 0.8;
-
-        glow.style.left = `${glowX - rect.left}px`;
-        glow.style.top = `${glowY - rect.top}px`;
-        glow.style.transform = `translate(-50%, -50%) scale(${1 + distance / rect.width * 0.5})`;
-        glow.classList.add('visible');
-        card.classList.add('edge-glow');
-      }
-
-      card.addEventListener('mousemove', (e) => {
-        updateGlow(e.clientX, e.clientY);
-      });
-
-      card.addEventListener('mouseleave', () => {
-        glow.classList.remove('visible');
-        card.classList.remove('edge-glow');
-      });
-      card.addEventListener('touchstart', (e) => {
-        if (e.touches.length > 0) {
-          const touch = e.touches[0];
-          updateGlow(touch.clientX, touch.clientY);
-        }
-      });
-      card.addEventListener('touchmove', (e) => {
-        if (e.touches.length > 0) {
-          const touch = e.touches[0];
-          updateGlow(touch.clientX, touch.clientY);
-        }
-      });
-      card.addEventListener('touchend', () => {
-        glow.classList.remove('visible');
-        card.classList.remove('edge-glow');
-      });
-    });
-
-    // --- Video Carousels Functionality ---
-    function setupCarousel(videoLinks, cardsListId, prevBtnId, nextBtnId) {
-      const cardsList = document.getElementById(cardsListId);
-      cardsList.innerHTML = ''; // Clear existing content to prevent duplicates
-      videoLinks.forEach((link, index) => {
-        const li = document.createElement("li");
-        // Add modest branding and controls, autoplay disabled for better user experience
-        li.innerHTML = `<iframe src="${link}?controls=1&modestbranding=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-        cardsList.appendChild(li);
-
-        setTimeout(() => {
-          li.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        }, index * 100);
-      });
-      const cards = cardsList.querySelectorAll('li');
-      // Set initial current to 0 (first video)
-      let current = 0; 
-      if (cards.length > 0) {
-          current = Math.min(1, cards.length -1); // If there are at least 2 videos, start with the second, otherwise the first
-      }
-
-
-      function updateCarousel() {
-        cards.forEach((card, index) => {
-          card.classList.remove('active', 'left', 'right');
-          if (index === current) {
-            card.classList.add('active');
-          } else if (index === current - 1) {
-            card.classList.add('left');
-          } else if (index === current + 1) {
-            card.classList.add('right');
-          }
-        });
-      }
-
-      document.getElementById(prevBtnId).addEventListener('click', () => {
-        if (current > 0) current--;
-        updateCarousel();
-      });
-      document.getElementById(nextBtnId).addEventListener('click', () => {
-        if (current < cards.length - 1) current++;
-        updateCarousel();
-      });
-      
-      // Initial update to show the first video correctly
-      updateCarousel();
-
-      return updateCarousel; // Return the function if you need to call it externally
-    }
-
-    // Initial page load animations and setups
-    window.addEventListener('load', () => {
-      animateParticles(); // Start particle background
-
-      // Create initial particles
-      for (let i = 0; i < 100; i++) {
-        createParticle(
-          Math.random() * w,
-          Math.random() * h
-        );
-      }
-
-      // Initialize carousels after a slight delay
-      setTimeout(() => {
-        setupCarousel(longformVideos, 'longform-cards', 'longform-prev', 'longform-next');
-        setupCarousel(shortsVideos, 'shorts-cards', 'shorts-prev', 'shorts-next');
-      }, 300);
-    });
-  </script>
-</body>
-</html>
+          <a href="ht
