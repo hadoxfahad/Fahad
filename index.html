@@ -16,84 +16,42 @@
       color: #fff;
       overflow-x: hidden;
       cursor: none; /* Hide default cursor to show custom glow */
-      -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
-      -webkit-touch-callout: none; /* Disable callout on longpress for iOS */
-      -webkit-user-select: none; /* Disable text selection for iOS */
-      -khtml-user-select: none; /* Disable text selection for old Safari */
-      -moz-user-select: none; /* Disable text selection for Firefox */
-      -ms-user-select: none; /* Disable text selection for IE/Edge */
-      user-select: none; /* Disable text selection for modern browsers */
     }
-
-    /* Disable context menu (right-click) and drag for images/text */
-    img, h1, h2, h3, p, span, ul, li, a {
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        -webkit-user-drag: none;
-        -moz-user-drag: none;
-        -o-user-drag: none;
-        user-drag: none;
-        
-        -webkit-touch-callout: none;
-    }
-    
-    /* Specific overrides for clickable elements that need default context menu if desired */
-    a, button {
-        user-select: auto; /* Allow selection for links/buttons if needed */
-        -webkit-user-select: auto;
-        -moz-user-select: auto;
-        -ms-user-select: auto;
-        cursor: pointer; /* Ensure cursor is visible on hover/tap if custom cursor is hidden */
-    }
-
 
     /* Floating Profile Picture - Fixed */
     .profile-pic {
       position: fixed;
       top: 50px;
       left: 50%;
-      transform: translateX(-50%) translateY(0px) scale(1); /* Initial state for float and scale */
+      transform: translateX(-50%);
       width: 150px;
       height: 150px;
       border-radius: 50%;
       border: 3px solid cyan;
       box-shadow: 0 0 30px cyan;
       z-index: 100;
-      transition: transform 0.3s ease, box-shadow 0.3s ease; /* Faster transition for pop effect */
+      transition: all 1s ease;
       animation: float 6s ease-in-out infinite;
       cursor: pointer;
       object-fit: cover;
       transform-style: preserve-3d;
-      backface-visibility: hidden;
     }
 
-    /* Combined float and flip animation for profile picture */
-    .profile-pic.flip {
-      animation: float-flip 1s ease-in-out forwards;
+    .profile-pic:hover {
+      animation: float 6s ease-in-out infinite;
     }
 
     @keyframes float {
-      0%, 100% { transform: translateX(-50%) translateY(0px) scale(1); }
-      50% { transform: translateX(-50%) translateY(-20px) scale(1); }
-    }
-    
-    @keyframes flip360 { /* Original 360 flip, kept separate */
-        0% { transform: translateX(-50%) rotateY(0deg); }
-        100% { transform: translateX(-50%) rotateY(360deg); }
+      0%, 100% { transform: translateX(-50%) translateY(0px); }
+      50% { transform: translateX(-50%) translateY(-20px); }
     }
 
-    @keyframes float-flip { /* Combination of float and flip */
-      0% { transform: translateX(-50%) translateY(0px) rotateY(0deg) scale(1); }
-      50% { transform: translateX(-50%) translateY(-20px) rotateY(180deg) scale(1.1); } /* Pop out slightly */
-      100% { transform: translateX(-50%) translateY(0px) rotateY(360deg) scale(1); }
+    @keyframes flip {
+      0% { transform: translateX(-50%) rotateY(0deg); }
+      100% { transform: translateX(-50%) rotateY(360deg); }
     }
 
-
-    /* Background Elements (Optimized Particles) */
+    /* Background Elements (Universal Particle Canvas) */
     canvas {
       position: fixed;
       top: 0;
@@ -101,12 +59,10 @@
       z-index: -2;
       width: 100vw;
       height: 100vh;
-      display: block; /* Ensure canvas is visible */
-      background-color: #0a0f1b; /* Fallback background */
     }
 
-    /* Container - Full Page Animation */
-    .container {
+    /* Main Container for Index Page Content */
+    .main-portfolio-container { /* Renamed from .container to avoid conflict */
       width: 90%;
       max-width: 1200px;
       margin: 200px auto 60px;
@@ -118,10 +74,9 @@
     }
 
     /* Blur effect for the container when scrolling up */
-    .container.scrolled-up-blur {
-        filter: blur(5px);
+    .main-portfolio-container.scrolled-up-blur {
+        filter: blur(5px); /* Apply a light blur */
     }
-
 
     @keyframes fadeInPage {
       to {
@@ -130,7 +85,7 @@
       }
     }
 
-    /* Sections with Premium Glow (Animated on scroll) */
+    /* Sections with Premium Glow (Main Page) */
     .section {
       position: relative;
       background: rgba(255, 255, 255, 0.05);
@@ -142,14 +97,12 @@
       backdrop-filter: blur(12px);
       transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       overflow: hidden;
-
-      /* Initial state for scroll animation */
       opacity: 0;
       transform: translateY(50px);
     }
-    /* State when in view, animation applied by JS */
+    /* State when in view */
     .section.is-in-view {
-        animation: fadeInPage 1s ease-out forwards; /* Re-use fadeInPage animation */
+        animation: fadeInPage 1s ease-out forwards;
     }
 
     #myWorkSection {
@@ -185,7 +138,7 @@
       text-shadow: 0 0 10px cyan;
     }
 
-    /* Wavy Underline */
+    /* Wavy Underline (General) */
     .underline {
       display: block;
       width: 150px;
@@ -197,7 +150,7 @@
       position: relative;
     }
     
-    /* Specific underline for "Contact Me" section */
+    /* Specific underline for "Contact Me" section - Updated for animation */
     .contact-card-section .underline {
         width: 200px;
         height: 6px;
@@ -213,6 +166,7 @@
         margin-top: 5px;
         border-radius: 0;
     }
+    /* Disable general wavy animation for this specific underline */
     .contact-card-section .underline::before {
         content: none;
     }
@@ -221,7 +175,6 @@
         0% { background-position: 100% 0; }
         100% { background-position: -100% 0; }
     }
-
 
     /* General Wavy Underline Animation */
     .underline:not(.contact-card-section .underline)::before {
@@ -242,44 +195,63 @@
       75% { transform: translateX(5px) scaleY(0.9); }
     }
 
-    /* Custom Cursor Glow (Replaces default cursor) */
+    /* Glow Effect (Custom Cursor Follow) */
     .custom-cursor-glow {
       position: fixed;
-      width: 50px; /* Base size of glow */
+      width: 50px;
       height: 50px;
       border-radius: 50%;
       background: radial-gradient(circle at center,
-        rgba(0, 255, 255, 0.8) 0%, /* Brighter core for more glow */
-        rgba(0, 255, 255, 0.3) 50%, /* Fades out more gradually */
+        rgba(0, 255, 255, 0.5) 0%,
+        rgba(0, 255, 255, 0.15) 50%,
         transparent 70%);
-      transform: translate(-50%, -50%); /* Center the glow on cursor */
-      pointer-events: none; /* Does not interfere with clicks */
-      transition: width 0.15s ease, height 0.15s ease, opacity 0.2s ease, filter 0.2s ease; /* Smoother transitions */
-      filter: blur(35px); /* Stronger base blur for more glow */
-      opacity: 0; /* Hidden by default */
-      mix-blend-mode: screen; /* Blending mode for glow effect */
-      z-index: 9999; /* Always on top */
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      transition: width 0.1s ease, height 0.1s ease, opacity 0.2s ease, filter 0.2s ease;
+      filter: blur(25px);
+      opacity: 0;
+      mix-blend-mode: screen;
+      z-index: 9999;
     }
     /* Larger glow when interacting with clickable elements */
     .custom-cursor-glow.interactive {
-        width: 90px; /* Larger size */
-        height: 90px;
-        opacity: 0.9; /* More opaque */
-        filter: blur(45px); /* More blur */
+        width: 80px;
+        height: 80px;
+        opacity: 0.7;
+        filter: blur(35px);
     }
-    /* Default visibility when mouse is moving */
     .custom-cursor-glow.visible {
-        opacity: 0.7; /* Default visibility when just moving mouse */
-    }
-    /* Hide custom cursor on mobile to prevent issues, rely on touch */
-    /* This will be handled by JS adding/removing 'touch-device' class to body */
-    body.touch-device .custom-cursor-glow {
-        display: none; /* Hide on touch devices by default */
-    }
-    body.touch-device {
-        cursor: auto; /* Show default cursor on mobile */
+        opacity: 0.5;
     }
 
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      margin: 30px 10px 0;
+      padding: 14px 28px;
+      background: cyan;
+      color: #000;
+      border-radius: 10px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 0 15px cyan;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+      border: none;
+      cursor: none;
+      font-family: 'Orbitron', sans-serif;
+      z-index: 1;
+    }
+
+    .btn:hover {
+      box-shadow: 0 0 25px cyan, inset 0 0 15px rgba(255, 255, 255, 0.5);
+      transform: translateY(-3px);
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
 
     /* New Buttons for Work Section */
     .work-buttons-container {
@@ -304,6 +276,7 @@
         transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         position: relative;
         overflow: hidden;
+        cursor: none;
         font-family: 'Orbitron', sans-serif;
         z-index: 1;
     }
@@ -320,22 +293,17 @@
     }
 
 
-    /* Contact Card Styles (Reverted to original single card) */
+    /* Contact Card Styles */
     .contact-card-section {
         margin: 80px auto;
         text-align: center;
         transition: backdrop-filter 0.5s ease-out;
-        position: relative; 
-        height: auto;
-        display: block; 
     }
 
-    /* Class to apply blur when scrolled */
     .contact-card-section.scrolled-blur {
         backdrop-filter: blur(8px);
     }
 
-    /* The single contact card */
     .contact-card {
         background: linear-gradient(135deg, rgba(30, 30, 50, 0.9), rgba(15, 15, 30, 0.9));
         border-radius: 20px;
@@ -347,30 +315,24 @@
         border: 1px solid rgba(0, 255, 255, 0.2);
         position: relative;
         overflow: hidden;
-        animation: fadeInPage 1s ease-out forwards; /* Initial fade-in on load */
-        
-        transform: none !important; 
-        opacity: 1 !important;
-        transition: none !important;
-        pointer-events: auto !important;
+        animation: fadeIn 1s ease-out 0.5s forwards;
     }
 
     .contact-card::before {
         content: '';
         position: absolute;
-        top: -2px;
-        left: -2px;
-        right: -2px;
-        bottom: -2px;
-        background: linear-gradient(45deg, rgba(0, 255, 255, 0.1), transparent 70%);
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at center, rgba(0, 255, 255, 0.1), transparent 70%);
         opacity: 0;
         transition: opacity 0.5s ease;
         pointer-events: none;
-        background-size: 100% 100%;
     }
 
     .contact-card:hover::before {
-        opacity: 1;
+      opacity: 1;
     }
 
     .contact-card-img {
@@ -425,6 +387,7 @@
         position: relative;
         overflow: hidden;
         z-index: 1;
+        cursor: none;
     }
 
     .social-btn::before {
@@ -446,11 +409,15 @@
         box-shadow: 0 0 20px cyan;
     }
 
+    .social-btn:active {
+        transform: translateY(1px);
+    }
+
     .social-btn:hover::before {
         transform: scale(1);
     }
 
-    /* Responsive Design */
+    /* Responsive Design (Main Page) */
     @media (max-width: 768px) {
       .profile-pic {
         width: 100px;
@@ -458,7 +425,7 @@
         top: 20px;
       }
 
-      .container {
+      .main-portfolio-container {
         margin-top: 130px;
         padding: 30px 0;
       }
@@ -468,7 +435,7 @@
         margin: 30px 0;
       }
 
-      h1 {
+      .section h1 {
         font-size: 1.8rem;
       }
 
@@ -482,16 +449,10 @@
           font-size: 1rem;
       }
 
-      /* Responsive for single Contact Card */
-      .contact-card-section {
-          height: auto;
-      }
       .contact-card {
           padding: 40px;
           margin: 0 10px;
-          min-height: auto;
       }
-      
       .contact-card-img {
           width: 100px;
           height: 100px;
@@ -505,7 +466,6 @@
           font-size: 1.1rem;
           margin-bottom: 20px;
       }
-
       .social-btn {
           width: 50px;
           height: 50px;
@@ -516,7 +476,7 @@
           gap: 15px;
       }
     }
-
+    
     /* Styles for typing effect and cursor */
     #changing-role {
         border-right: 2px solid;
@@ -540,216 +500,1067 @@
     .role-thumbnail-designer { color: #FF69B4; text-shadow: 0 0 10px #FF69B4, 0 0 20px rgba(255, 105, 180, 0.5); }
     .role-youtuber { color: #FF0000; text-shadow: 0 0 10px #FF0000, 0 0 20px rgba(255, 0, 0, 0.5); }
 
+    /* ========================================================= */
+    /* --- Styles Merged from video.html --- */
+    /* Renamed .container to .video-work-container to avoid conflict */
+    .video-work-container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 120px auto 60px;
+      padding: 60px 0;
+      /* opacity and transform will be handled by JS when shown */
+    }
+
+    /* Renamed .header-section to .video-header-section */
+    .video-header-section {
+      text-align: center;
+      margin-bottom: 50px;
+      position: relative;
+    }
+    .video-header-section h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      text-shadow: 0 0 15px cyan, 0 0 25px rgba(0, 255, 255, 0.5);
+      color: cyan;
+    }
+    .video-header-section .underline { /* Keeping this specific to video-header-section */
+      display: block;
+      width: 250px;
+      height: 4px;
+      background: cyan;
+      margin: 10px auto 0;
+      box-shadow: 0 0 10px cyan, 0 0 20px cyan;
+      border-radius: 50% 50% 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .video-header-section .underline::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: cyan;
+      border-radius: inherit;
+      animation: wave 3s ease-in-out infinite; /* Uses general @keyframes wave */
+      box-shadow: inherit;
+    }
+
+    /* Video Sections Content (Keep original class names for simplicity) */
+    .video-section-content {
+        margin: 80px 0;
+        padding: 40px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+        backdrop-filter: blur(12px);
+        animation: slideUp 0.8s ease-out 0.3s both;
+    }
+
+    .video-section-content h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 2rem;
+      text-shadow: 0 0 10px cyan;
+      color: cyan;
+    }
+
+    .video-section-content p {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 1.1rem;
+        color: #ccc;
+        line-height: 1.6;
+    }
+    
+    .dynamic-video-heading {
+        font-size: 1.8rem;
+        text-align: center;
+        color: #99FFFF;
+        margin-top: 20px;
+        margin-bottom: 15px;
+        text-shadow: 0 0 8px rgba(153, 255, 255, 0.5);
+        min-height: 1.8em;
+        transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Gallery (Video Carousels) */
+    .gallery {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding-bottom: 80px;
+    }
+
+    .cards {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      position: relative;
+      min-height: 450px;
+    }
+
+    .shorts-cards {
+      min-height: 400px;
+    }
+
+    .cards li {
+      position: absolute;
+      width: 400px;
+      height: 0;
+      padding-bottom: calc(400px * 9 / 16);
+      background: #000;
+      border-radius: 15px;
+      overflow: hidden;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      pointer-events: none;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+    }
+
+    .shorts-cards li {
+      width: 250px;
+      height: 0;
+      padding-bottom: calc(250px * 16 / 9);
+    }
+
+    .cards li iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .cards li.active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 3;
+      pointer-events: auto;
+      box-shadow: 0 0 30px cyan;
+    }
+
+    .cards li.left, .cards li.right {
+      opacity: 0.6;
+      transform: translateX(-470px) scale(0.8);
+      z-index: 2;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+    }
+
+    .cards li.left {
+      transform: translateX(-320px) scale(0.8);
+    }
+
+    .cards li.right {
+      transform: translateX(470px) scale(0.8);
+    }
+
+    .shorts-cards li.right {
+      transform: translateX(320px) scale(0.8);
+    }
+
+    /* Navigation Buttons (for Carousels) */
+    .nav-buttons {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding-top: 20px;
+    }
+
+    .nav-buttons button {
+      padding: 12px 24px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      color: white;
+      background-color: #2ecc71;
+      font-family: 'Orbitron', sans-serif;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
+    }
+
+    .nav-buttons button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 20px rgba(46, 204, 113, 0.8);
+    }
+
+    .nav-buttons button:active {
+      transform: translateY(1px);
+    }
+
+    .nav-buttons button#prev {
+      background-color: #555;
+      box-shadow: 0 0 10px rgba(85, 85, 85, 0.5);
+    }
+
+    .nav-buttons button#prev:hover {
+      box-shadow: 0 5px 20px rgba(85, 85, 85, 0.8);
+    }
+
+    /* Responsive Design (Video Section) */
+    @media (max-width: 768px) {
+      .video-work-container { /* Affects this specific container */
+        margin-top: 80px;
+        padding: 30px 0;
+      }
+      .video-header-section h1 {
+        font-size: 2.5rem;
+      }
+      .video-header-section .underline {
+        width: 200px;
+      }
+      .video-section-content {
+        margin: 50px 0;
+        padding: 25px;
+      }
+      .video-section-content h2 {
+        font-size: 1.5rem;
+      }
+      .video-section-content p {
+        font-size: 1rem;
+      }
+      .dynamic-video-heading {
+        font-size: 1.4rem;
+        min-height: 1.4em;
+      }
+      .gallery {
+        max-width: 100%;
+      }
+      .cards {
+        min-height: 300px;
+      }
+      .shorts-cards {
+        min-height: 250px;
+      }
+      .cards li {
+        width: 100%;
+        padding-bottom: calc(100% * 9 / 16);
+      }
+      .shorts-cards li {
+        width: 100%;
+        padding-bottom: calc(100% * 16 / 9);
+      }
+      .cards li.left {
+        transform: translateX(-110%) scale(0.8);
+      }
+      .shorts-cards li.left {
+        transform: translateX(-110%) scale(0.8);
+      }
+      .cards li.right {
+        transform: translateX(110%) scale(0.8);
+      }
+      .shorts-cards li.right {
+        transform: translateX(110%) scale(0.8);
+      }
+      .nav-buttons button {
+        padding: 10px 18px;
+        font-size: 0.8rem;
+      }
+    }
+
+    /* ========================================================= */
+    /* --- Styles Merged from thumbnail.html --- */
+    /* Renamed .container to .thumbnail-designs-container to avoid conflict */
+    .thumbnail-designs-container {
+        width: 90%;
+        max-width: 1400px;
+        margin: 80px auto 60px;
+        padding: 60px 0;
+    }
+
+    /* Renamed .header to .thumbnail-header */
+    .thumbnail-header {
+        text-align: center;
+        margin-bottom: 50px;
+        position: relative;
+    }
+    .thumbnail-header h1 {
+        font-size: 3.5rem;
+        margin-bottom: 10px;
+        text-shadow: 0 0 20px cyan, 0 0 30px rgba(0, 255, 255, 0.5);
+        color: cyan;
+    }
+
+    /* Wavy Underline specific to thumbnail-header */
+    .thumbnail-header .underline {
+        display: block;
+        width: 300px;
+        height: 4px;
+        background: cyan;
+        margin: 10px auto 0;
+        box-shadow: 0 0 10px cyan, 0 0 20px cyan;
+        border-radius: 50% 50% 0 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .thumbnail-header .underline::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: cyan;
+        border-radius: inherit;
+        animation: wave 3s ease-in-out infinite; /* Uses general @keyframes wave */
+        box-shadow: inherit;
+    }
+
+    /* Thumbnail Grid Styles */
+    .thumbnail-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 40px;
+        justify-items: center;
+    }
+
+    .grid-item {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(0, 255, 255, 0.15);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 0 25px rgba(0, 255, 255, 0.2);
+        backdrop-filter: blur(15px);
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        cursor: pointer;
+        position: relative;
+        padding: 20px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        animation: slideIn 0.6s ease-out forwards;
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    .grid-item:nth-child(2n) { animation-delay: 0.1s; }
+    .grid-item:nth-child(3n) { animation-delay: 0.2s; }
+    .grid-item:nth-child(4n) { animation-delay: 0.3s; }
+
+    @keyframes slideIn {
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .grid-item:hover {
+        transform: translateY(-15px) scale(1.05);
+        box-shadow: 0 0 60px cyan, 0 0 90px rgba(0, 255, 255, 0.6);
+        z-index: 2;
+    }
+
+    /* 16:9 Aspect Ratio for Thumbnail Images */
+    .grid-item-image-wrapper {
+        width: 100%;
+        padding-bottom: 56.25%;
+        position: relative;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        border: 2px solid rgba(0, 255, 255, 0.4);
+        transition: border 0.3s ease;
+    }
+
+    .grid-item:hover .grid-item-image-wrapper {
+        border-color: cyan;
+    }
+
+    .grid-item img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        border-radius: 0;
+    }
+
+    .grid-item h3 {
+        font-size: 1.5rem;
+        color: cyan;
+        margin-bottom: 12px;
+        text-shadow: 0 0 8px rgba(0, 255, 255, 0.7);
+    }
+
+    .grid-item p {
+        font-size: 1rem;
+        color: #ddd;
+        line-height: 1.6;
+        flex-grow: 1;
+        max-height: 90px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+    }
+
+    /* Modal for larger view (Thumbnail) */
+    .thumbnail-modal { /* Renamed from .modal */
+        display: none;
+        position: fixed;
+        z-index: 2000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.95);
+        backdrop-filter: blur(15px);
+        animation: fadeInModal 0.4s forwards;
+    }
+
+    .thumbnail-modal-content { /* Renamed from .modal-content */
+        margin: auto;
+        display: block;
+        max-width: 95%;
+        max-height: 85%;
+        object-fit: contain;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 80px cyan, 0 0 120px rgba(0, 255, 255, 0.8);
+        border-radius: 15px;
+        border: 2px solid cyan;
+        transition: all 0.3s ease-in-out;
+        opacity: 0;
+        animation: modalImageIn 0.6s ease-out 0.2s forwards;
+    }
+
+    @keyframes modalImageIn {
+        from { opacity: 0; transform: translate(-50%, -40%) scale(0.9); }
+        to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+
+    .thumbnail-modal-caption { /* Renamed from .modal-caption */
+        margin: auto;
+        display: block;
+        width: 90%;
+        max-width: 800px;
+        text-align: center;
+        color: #eee;
+        padding: 20px 0;
+        font-size: 1.2rem;
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        border: 1px solid rgba(0, 255, 255, 0.2);
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+        opacity: 0;
+        animation: modalCaptionIn 0.6s ease-out 0.4s forwards;
+    }
+
+    @keyframes modalCaptionIn {
+        from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+        to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    .thumbnail-modal-caption h3 {
+        font-size: 2rem;
+        color: cyan;
+        margin-bottom: 10px;
+        text-shadow: 0 0 10px cyan;
+    }
+    .thumbnail-modal-caption p {
+        font-size: 1rem;
+        color: #ccc;
+        line-height: 1.5;
+    }
+
+    .thumbnail-close-button { /* Renamed from .close-button to avoid conflict */
+        position: absolute;
+        top: 30px;
+        right: 50px;
+        color: cyan;
+        font-size: 60px;
+        font-weight: normal;
+        transition: 0.3s ease;
+        cursor: pointer;
+        z-index: 2001;
+        text-shadow: 0 0 15px cyan;
+    }
+
+    .thumbnail-close-button:hover,
+    .thumbnail-close-button:focus {
+        color: #fff;
+        transform: scale(1.1) rotate(5deg);
+        text-shadow: 0 0 25px #fff;
+    }
+
+    /* Responsive Design (Thumbnail Section) */
+    @media (max-width: 1024px) {
+        .thumbnail-designs-container { /* Affects this specific container */
+            max-width: 95%;
+            margin: 60px auto 40px;
+            padding: 40px 0;
+        }
+        .thumbnail-header h1 {
+            font-size: 2.8rem;
+        }
+        .thumbnail-header .underline {
+            width: 250px;
+        }
+        .thumbnail-grid {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .grid-item {
+            padding: 15px;
+            border-radius: 15px;
+        }
+        .grid-item-image-wrapper {
+            margin-bottom: 15px;
+        }
+        .grid-item h3 {
+            font-size: 1.3rem;
+        }
+        .grid-item p {
+            font-size: 0.9rem;
+            max-height: 80px;
+        }
+        .thumbnail-modal-content {
+            max-width: 90%;
+            max-height: 80%;
+        }
+        .thumbnail-modal-caption {
+            max-width: 700px;
+            padding: 15px 0;
+        }
+        .thumbnail-modal-caption h3 {
+            font-size: 1.8rem;
+        }
+        .thumbnail-close-button {
+            font-size: 50px;
+            top: 20px;
+            right: 30px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .thumbnail-designs-container { /* Affects this specific container */
+            margin: 40px auto 30px;
+            padding: 20px 0;
+        }
+        .thumbnail-header h1 {
+            font-size: 2rem;
+        }
+        .thumbnail-header .underline {
+            width: 180px;
+        }
+        .thumbnail-grid {
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+        .grid-item {
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .grid-item-image-wrapper {
+            margin-bottom: 10px;
+        }
+        .grid-item h3 {
+            font-size: 1.1rem;
+        }
+        .grid-item p {
+            font-size: 0.85rem;
+            max-height: 70px;
+        }
+        .thumbnail-modal-content {
+            max-width: 95%;
+            max-height: 75%;
+        }
+        .thumbnail-modal-caption {
+            width: 95%;
+            font-size: 0.9rem;
+            padding: 10px 0;
+            bottom: 10px;
+        }
+        .thumbnail-modal-caption h3 {
+            font-size: 1.5rem;
+        }
+        .thumbnail-close-button {
+            font-size: 40px;
+            top: 10px;
+            right: 20px;
+        }
+    }
   </style>
 </head>
 <body>
   <div class="custom-cursor-glow" id="custom-cursor-glow"></div>
 
-  <img src="profile.jpg" alt="Fahad's Profile" class="profile-pic" id="profilePic">
+  <img src="images/profile.jpg" alt="Fahad's Profile" class="profile-pic" id="profilePic">
 
-  <div class="container">
-    <div class="section">
-      <h1>FAHAD</h1>
+  <canvas id="canvas"></canvas>
+
+  <div class="main-portfolio-container" id="mainPortfolioContainer">
+    <div class="section"><div class="glow-follow"></div>
+      <h1 id="mainNameHeading">FAHAD</h1>
       <span class="underline"></span>
-      <p>Hi! I'm Fahad — a creative Video Editor, VFX Artist, and Designer with 5 years of experience...</p>
-      <p style="font-size: 1.5rem; text-align: center;">
+      <p id="aboutMeText">Loading About Me...</p>
+      <p style="font-size: 1.5rem; text-align: center; margin-top: 20px;">
         I'm a <span id="changing-role"></span>
       </p>
     </div>
 
-    <div class="section">
+    <div class="section"><div class="glow-follow"></div>
       <h1>About Me</h1>
       <span class="underline"></span>
-      <p><strong>Country:</strong> India</p>
-      <p><strong>Age:</strong> 16</p>
-      <p><strong>Experience:</strong> 5 Years</p>
-      <p><strong>School:</strong> High School</p>
+      <p><strong>Country:</strong> <span id="countryText">Loading...</span></p>
+      <p><strong>Age:</strong> <span id="ageText">Loading...</span></p>
+      <p><strong>Experience:</strong> <span id="experienceText">Loading...</span></p>
+      <p><strong>School:</strong> <span id="schoolText">Loading...</span></p>
     </div>
 
-    <div class="section">
+    <div class="section"><div class="glow-follow"></div>
       <h1>Skills</h1>
       <span class="underline"></span>
-      <ul>
-        <li>Video Editing (Reels, Shorts, Cinematic)</li>
-        <li>VFX & CGI Effects</li>
-        <li>Thumbnail & Poster Design</li>
-        <li>Social Media Content & Branding</li>
-      </ul>
+      <ul id="skillsListDisplay">
+        </ul>
     </div>
 
-    <div class="section">
+    <div class="section"><div class="glow-follow"></div>
       <h1>Software Used</h1>
       <span class="underline"></span>
-      <ul>
-        <li>Adobe After Effects</li>
-        <li>Premiere Pro</li>
-        <li>Photoshop</li>
-        <li>Blender</li>
-      </ul>
+      <ul id="softwareListDisplay">
+        </ul>
     </div>
 
-    <div class="section" id="myWorkSection">
+    <div class="section" id="myWorkSection"><div class="glow-follow"></div>
       <h1>My Work</h1>
       <span class="underline"></span>
 
       <div class="work-buttons-container">
-          <a href="https://hadoxfahad.github.io/Video-work-/" class="work-button">VIEW VIDEO WORK</a>
-          <a href="https://hadoxfahad.github.io/Fahad-thumbnail/index.html" target="_blank" class="work-button">VIEW THUMBNAIL DESIGNS</a>
+          <button id="viewVideoWorkBtn" class="work-button">VIEW VIDEO WORK</button>
+          <button id="viewThumbnailDesignsBtn" class="work-button">VIEW THUMBNAIL DESIGNS</button>
       </div>
 
     </div>
 
-    <div class="section contact-card-section">
+    <div class="section contact-card-section"><div class="glow-follow"></div>
       <h2>Contact Me</h2>
       <span class="underline"></span>
       <div class="contact-card">
-        <img src="newprofile.jpg" alt="Fahad Malik" class="contact-card-img">
-        <h3>FAHAD MALIK</h3>
+        <img src="images/newprofile.jpg" alt="Fahad Malik" class="contact-card-img" id="contactCardImg">
+        <h3 id="contactCardName">FAHAD MALIK</h3>
         <p>EDITOR | VFX & CGI ARTIST | THUMBNAIL DESIGNER</p>
         <div class="social-links">
-          <a href="https://www.instagram.com/your_instagram_id" target="_blank" class="social-btn">
+          <a href="#" target="_blank" class="social-btn" id="instagramLink">
             <i class="fab fa-instagram"></i>
           </a>
-          <a href="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&mute=179" target="_blank" class="social-btn">
+          <a href="#" target="_blank" class="social-btn" id="youtubeLink">
             <i class="fab fa-youtube"></i>
           </a>
-          <a href="https://t.me/hadoxfahad" target="_blank" class="social-btn">
+          <a href="#" target="_blank" class="social-btn" id="telegramLink">
             <i class="fab fa-telegram-plane"></i>
           </a>
         </div>
       </div>
     </div>
-
   </div>
 
-  <script>
-    // --- Floating Profile Picture ---
-    const profilePic = document.getElementById('profilePic');
-    let isFlipped = false;
-    profilePic.addEventListener('click', () => {
-      isFlipped = !isFlipped;
-      profilePic.classList.toggle('flip', isFlipped);
-      // Remove flip class after animation to allow re-triggering
-      profilePic.addEventListener('animationend', () => {
-          profilePic.classList.remove('flip');
-      }, { once: true });
+  <div id="videoWorkSection" class="video-work-container" style="display: none;">
+      <a href="#" class="back-button" id="backToPortfolioFromVideo">
+          <i class="fas fa-arrow-left"></i> Back to Portfolio
+      </a>
+      <div class="video-header-section">
+          <h1>My Video Editing Work</h1>
+          <span class="underline"></span>
+          <p style="margin-top: 30px; font-size: 1.1rem; color: #aaa;">Explore my diverse range of video editing projects.</p>
+      </div>
+
+      <div class="video-section-content">
+          <h2>Short-Form Video Work</h2>
+          <p>Engaging short videos for social media.</p>
+          <div id="shorts-dynamic-heading" class="dynamic-video-heading"></div>
+          <div class="gallery" id="shorts-gallery">
+              <ul class="cards shorts-cards" id="shorts-cards"></ul>
+              <div class="nav-buttons">
+                  <button id="shorts-prev">PREV</button>
+                  <button id="shorts-next">NEXT</button>
+              </div>
+          </div>
+      </div>
+
+      <div class="video-section-content">
+          <h2>Long-Form Video Work</h2>
+          <p>In-depth video projects.</p>
+          <div id="longform-dynamic-heading" class="dynamic-video-heading"></div>
+          <div class="gallery" id="longform-gallery">
+              <ul class="cards" id="longform-cards"></ul>
+              <div class="nav-buttons">
+                  <button id="longform-prev">PREV</button>
+                  <button id="longform-next">NEXT</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div id="thumbnailDesignSection" class="thumbnail-designs-container" style="display: none;">
+      <a href="#" class="back-button" id="backToPortfolioFromThumbnail">
+          <i class="fas fa-arrow-left"></i> Back to Portfolio
+      </a>
+      <div class="thumbnail-header">
+          <h1>All My Thumbnail Designs</h1>
+          <span class="underline"></span>
+      </div>
+
+      <div class="thumbnail-grid" id="full-thumbnail-grid">
+          </div>
+      </div>
+
+      <div id="thumbnailModal" class="thumbnail-modal">
+          <span class="thumbnail-close-button">×</span>
+          <img class="thumbnail-modal-content" id="img01">
+          <div id="caption" class="thumbnail-modal-caption"></div>
+      </div>
+
+  <script type="module">
+    // Import Firebase modules
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
+        apiKey: "AIzaSyC1m25mHpA59xBQmF34BfA1K_vY2pUSrLI",
+        authDomain: "fahad-portfolio-81c65.firebaseapp.com",
+        databaseURL: "https://fahad-portfolio-81c65-default-rtdb.firebaseio.com",
+        projectId: "fahad-portfolio-81c65",
+        storageBucket: "fahad-portfolio-81c65.firebasestorage.app",
+        messagingSenderId: "510625882446",
+        appId: "1:510625882446:web:b23f76808b3dd0e79a3e1f",
+        measurementId: "G-J5S5PLWE7J"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+    const portfolioDataRef = doc(db, 'portfolio', appId); // Reference to the main portfolio data document
+
+    // --- Firebase Auth & Data Loading ---
+    let currentAuthUser = null; // To store the current authenticated user
+
+    // onAuthStateChanged will handle the initial sign-in and subsequent state changes.
+    // For the public index.html, we aim for anonymous sign-in for read permissions.
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            currentAuthUser = user;
+            console.log("Firebase user signed in:", user.uid);
+            // Start listening for real-time updates to portfolio data
+            onSnapshot(portfolioDataRef, (docSnap) => {
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    updatePortfolioUI(data); // Update UI with live data
+                } else {
+                    console.log("No portfolio data found in Firestore. Attempting to create default data if authenticated.");
+                    // If document doesn't exist, attempt to create default data (this requires write permissions)
+                    setDoc(portfolioDataRef, {
+                        profile: {
+                            profilePicUrl: "https://placehold.co/150x150/00FFFF/0a0f1b?text=Profile",
+                            fahadName: "FAHAD",
+                            fahadMalikName: "FAHAD MALIK",
+                            contactCardImgUrl: "https://placehold.co/150x150/00FFFF/0a0f1b?text=Contact"
+                        },
+                        aboutMe: "Hi! I'm Fahad — a creative Video Editor, VFX Artist, and Designer with 5 years of experience...",
+                        aboutMeDetails: {
+                            country: "India",
+                            age: 16,
+                            experience: "5 Years",
+                            school: "High School"
+                        },
+                        roles: [
+                            { text: "Editor", className: "role-editor" },
+                            { text: "VFX & CGI Artist", className: "role-vfx-artist" },
+                            { text: "Thumbnail Designer", className: "role-thumbnail-designer" },
+                            { text: "Youtuber", className: "role-youtuber" }
+                        ],
+                        skills: [
+                            "Video Editing (Reels, Shorts, Cinematic)",
+                            "VFX & CGI Effects",
+                            "Thumbnail & Poster Design",
+                            "Social Media Content & Branding"
+                        ],
+                        software: [
+                            "Adobe After Effects",
+                            "Premiere Pro",
+                            "Photoshop",
+                            "Blender"
+                        ],
+                        contact: {
+                            email: "your_email@example.com",
+                            instagram: "https://www.instagram.com/your_instagram_id",
+                            youtube: "https://www.youtube.com/your_youtube_channel_id",
+                            telegram: "https://t.me/hadoxfahad"
+                        },
+                        videos: { // Default video data (add some placeholders)
+                            shorts: [
+                                { id: 'short1', url: 'https://www.youtube.com/embed/kR6A15jH0yY', heading: 'Quick Tip: Editing' },
+                                { id: 'short2', url: 'https://www.youtube.com/embed/oP2r0nF3-Hw', heading: 'Behind the Scenes: VFX' }
+                            ],
+                            longform: [
+                                { id: 'long1', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ', heading: 'Cinematic Intro' },
+                                { id: 'long2', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ', heading: 'Gaming Highlights' }
+                            ]
+                        },
+                        thumbnails: [ // Default thumbnail data
+                            { id: 'thumb1', src: 'https://placehold.co/1280x720/00FFFF/0a0f1b?text=Design+1', title: 'First Design', description: 'This is a detailed description for my first thumbnail design.' },
+                            { id: 'thumb2', src: 'https://placehold.co/1280x720/00FFFF/0a0f1b?text=Design+2', title: 'Second Design', description: 'Another creative thumbnail placeholder.' }
+                        ]
+                    }).then(() => {
+                        console.log("Default portfolio data written successfully by index.html.");
+                    }).catch(error => {
+                        console.error("Error writing default portfolio data from index.html (permissions issue likely):", error);
+                        // If write fails here, it implies read also might be restricted.
+                    });
+                }
+            }, (error) => {
+                console.error("Error listening to portfolio data on index.html:", error);
+                // Display user-friendly error message if data cannot be loaded
+                document.getElementById('aboutMeText').textContent = "Content loading failed. Please check your internet or Firebase permissions.";
+                document.getElementById('mainNameHeading').textContent = "Error!";
+                document.getElementById('countryText').textContent = "N/A";
+                document.getElementById('ageText').textContent = "N/A";
+                document.getElementById('experienceText').textContent = "N/A";
+                document.getElementById('schoolText').textContent = "N/A";
+                document.getElementById('skillsListDisplay').innerHTML = '<li>Error loading skills.</li>';
+                document.getElementById('softwareListDisplay').innerHTML = '<li>Error loading software.</li>';
+            });
+        } else {
+            // Attempt anonymous sign-in if no user and no custom token (for public access)
+            if (typeof __initial_auth_token !== 'undefined') {
+                try {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } catch (error) {
+                    console.error("Custom token sign-in failed for index.html:", error);
+                    // Fallback to anonymous if custom token fails
+                    try {
+                        await signInAnonymously(auth);
+                        console.log("Signed in anonymously for public access (index.html, fallback from custom token).");
+                    } catch (anonError) {
+                        console.error("Anonymous sign-in failed (index.html, fallback):", anonError);
+                    }
+                }
+            } else {
+                try {
+                    await signInAnonymously(auth);
+                    console.log("Signed in anonymously for public access (index.html, non-Canvas).");
+                } catch (anonError) {
+                    console.error("Anonymous sign-in failed (index.html, non-Canvas):", anonError);
+                }
+            }
+        }
     });
 
-    // --- Custom Cursor Glow (Fixed and optimized for mobile/desktop) ---
+    // --- Update UI from Firestore Data ---
+    function updatePortfolioUI(data) {
+        // Update Profile Picture and Name
+        const profilePicElement = document.getElementById('profilePic');
+        const contactCardImgElement = document.getElementById('contactCardImg');
+        const mainNameHeadingElement = document.getElementById('mainNameHeading');
+        const contactCardNameElement = document.getElementById('contactCardName');
+
+        profilePicElement.src = data.profile?.profilePicUrl || 'https://placehold.co/150x150/00FFFF/0a0f1b?text=Profile'; // Fallback to placeholder
+        contactCardImgElement.src = data.profile?.contactCardImgUrl || 'https://placehold.co/150x150/00FFFF/0a0f1b?text=Contact'; // Fallback to placeholder
+        mainNameHeadingElement.textContent = data.profile?.fahadName || 'FAHAD';
+        contactCardNameElement.textContent = data.profile?.fahadMalikName || 'FAHAD MALIK';
+
+        // Update About Me section
+        document.getElementById('aboutMeText').textContent = data.aboutMe || 'Hi! I\'m Fahad...';
+        
+        // Update About Me details (Country, Age, Experience, School)
+        document.getElementById('countryText').textContent = data.aboutMeDetails?.country || 'India';
+        document.getElementById('ageText').textContent = data.aboutMeDetails?.age || '16';
+        document.getElementById('experienceText').textContent = data.aboutMeDetails?.experience || '5 Years';
+        document.getElementById('schoolText').textContent = data.aboutMeDetails?.school || 'High School';
+
+
+        // Update Changing Roles (Typewriter Effect)
+        window.roles = data.roles || [ // Default roles if data is empty or missing
+            { text: "Editor", className: "role-editor" },
+            { text: "VFX & CGI Artist", className: "role-vfx-artist" },
+            { text: "Thumbnail Designer", className: "role-thumbnail-designer" },
+            { text: "Youtuber", className: "role-youtuber" }
+        ];
+        if (!window.typeEffectRunning) { // Use a flag to prevent multiple starts
+            typeEffect(); // Call directly, it handles setTimeout internally
+            window.typeEffectRunning = true;
+        } else {
+            // If the typewriter is already running, and roles data changes, it will pick up new roles
+            // in its next cycle. No need to restart immediately here.
+        }
+
+
+        // Update Skills List
+        const skillsListDisplay = document.getElementById('skillsListDisplay');
+        skillsListDisplay.innerHTML = '';
+        (data.skills || []).forEach(skill => {
+            const li = document.createElement('li');
+            li.textContent = skill;
+            skillsListDisplay.appendChild(li);
+        });
+
+        // Update Software Used List
+        const softwareListDisplay = document.getElementById('softwareListDisplay');
+        softwareListDisplay.innerHTML = '';
+        (data.software || []).forEach(software => {
+            const li = document.createElement('li');
+            li.textContent = software;
+            softwareListDisplay.appendChild(li);
+        });
+
+        // Update Contact Links
+        document.getElementById('instagramLink').href = data.contact?.instagram || '#';
+        document.getElementById('youtubeLink').href = data.contact?.youtube || '#';
+        document.getElementById('telegramLink').href = data.contact?.telegram || '#';
+
+        // Update Video Work (Carousels) - pass data from Firestore
+        // This will now use the data directly from Firestore for video carousels
+        window.shortsVideosData = data.videos?.shorts || [];
+        window.longformVideosData = data.videos?.longform || [];
+
+        // Update Thumbnail Designs - pass data from Firestore
+        // This will now use the data directly from Firestore for thumbnail grid
+        window.allThumbnailsData = data.thumbnails || [];
+
+        // Re-initialize carousel/grid only if their sections are active
+        if (videoWorkSection.style.display === 'block') {
+            setupCarousel(window.shortsVideosData, 'shorts-cards', 'shorts-prev', 'shorts-next', 'shorts-dynamic-heading');
+            setupCarousel(window.longformVideosData, 'longform-cards', 'longform-prev', 'longform-next', 'longform-dynamic-heading');
+        }
+        if (thumbnailDesignSection.style.display === 'block') {
+            populateGrid();
+        }
+    }
+
+
+    // --- Floating Profile Picture ---
+    const profilePicElement = document.getElementById('profilePic'); // Renamed to avoid conflict
+    let isFlipped = false;
+    profilePicElement.addEventListener('click', () => {
+      isFlipped = !isFlipped;
+      profilePicElement.classList.toggle('flip', isFlipped);
+    });
+
+    // --- Particle Background (Universal - keep only one instance of logic) ---
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let w = canvas.width = window.innerWidth;
+    let h = canvas.height = window.innerHeight;
+    let particles = [];
+
+    function resizeCanvas() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+
+    function createParticle(x, y) {
+      particles.push({
+        x, y,
+        alpha: 1,
+        radius: Math.random() * 3 + 1,
+        dx: Math.random() * 2 - 1,
+        dy: Math.random() * 2 - 1,
+        color: `hsla(${Math.random() * 60 + 180}, 100%, 50%, ${Math.random() * 0.5 + 0.3})`
+      });
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, w, h);
+      if (Math.random() < 0.2) {
+        createParticle(
+          Math.random() * w,
+          Math.random() * h
+        );
+      }
+
+      for (let i = 0; i < particles.length; i++) {
+        let p = particles[i];
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.alpha;
+        ctx.fill();
+
+        p.x += p.dx;
+        p.y += p.dy;
+        p.alpha -= 0.003;
+
+        if (p.alpha <= 0) {
+          particles.splice(i, 1);
+          i--;
+        }
+      }
+      requestAnimationFrame(animateParticles);
+    }
+
+    // --- Custom Cursor Glow ---
     const customCursorGlow = document.getElementById('custom-cursor-glow');
     let mouseX = 0;
     let mouseY = 0;
     let targetX = 0;
     let targetY = 0;
-    let isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
-
-    // Add class to body if it's a touch device (for CSS hiding)
-    if (isTouchDevice) {
-        document.body.classList.add('touch-device');
-    }
-
-    // Mouse events for desktop
     document.addEventListener('mousemove', (e) => {
-        if (isTouchDevice) return; // Disable mousemove for touch devices
-
         mouseX = e.clientX;
         mouseY = e.clientY;
-        customCursorGlow.classList.add('visible'); // Make cursor visible on mouse move
+        customCursorGlow.classList.add('visible');
     });
-
     document.addEventListener('mouseleave', () => {
-        if (isTouchDevice) return;
-        customCursorGlow.classList.remove('visible'); // Hide cursor when mouse leaves document
+        customCursorGlow.classList.remove('visible');
     });
-
-    // Touch events for mobile (single touch point for interaction)
-    let touchMoveTimer; // To manage hide/show on touch move
-    document.addEventListener('touchstart', (e) => {
-        if (!isTouchDevice || !customCursorGlow) return;
-        const touch = e.touches[0];
-        mouseX = touch.clientX;
-        mouseY = touch.clientY;
-        targetX = mouseX; // Immediately set target for touch
-        targetY = mouseY;
+    function animateCustomCursor() {
+        targetX += (mouseX - targetX) * 0.1;
+        targetY += (mouseY - targetY) * 0.1;
         customCursorGlow.style.left = `${targetX}px`;
         customCursorGlow.style.top = `${targetY}px`;
-        customCursorGlow.classList.add('visible', 'interactive'); // Show and make interactive on touch
-        
-        // Start animating on touch if it's not already animating (for mobile)
-        if (!isAnimatingCustomCursor) {
-            animateCustomCursor();
-            isAnimatingCustomCursor = true;
-        }
-
-        clearTimeout(touchMoveTimer); // Clear any previous hide timer
-    });
-
-    document.addEventListener('touchmove', (e) => {
-        if (!isTouchDevice || !customCursorGlow) return;
-        const touch = e.touches[0];
-        mouseX = touch.clientX;
-        mouseY = touch.clientY;
-        
-        customCursorGlow.classList.add('visible'); // Keep visible during move
-        clearTimeout(touchMoveTimer); // Reset hide timer on movement
-    });
-
-    document.addEventListener('touchend', () => {
-        if (!isTouchDevice || !customCursorGlow) return;
-        // Hide after a short delay if no more touch interaction
-        touchMoveTimer = setTimeout(() => {
-            customCursorGlow.classList.remove('visible', 'interactive');
-            isAnimatingCustomCursor = false; // Stop animating on touch end
-        }, 300); // Hide after 300ms of no touch
-    });
-
-
-    // Animation loop for smooth cursor follow
-    let isAnimatingCustomCursor = false;
-    function animateCustomCursor() {
-        if (customCursorGlow) { // Only animate if element exists
-            // Smoothly move the glow towards the mouse/touch position
-            targetX += (mouseX - targetX) * 0.15; // Increased easing factor for quicker follow
-            targetY += (mouseY - targetY) * 0.15;
-            customCursorGlow.style.left = `${targetX}px`;
-            customCursorGlow.style.top = `${targetY}px`;
-            // Request animation frame continuously only if needed
-            if (isAnimatingCustomCursor || !isTouchDevice) { // Always animate on desktop, only when active on touch
-                requestAnimationFrame(animateCustomCursor);
-            }
-        }
+        requestAnimationFrame(animateCustomCursor);
     }
-    // Start animation loop for desktop immediately
-    if (customCursorGlow && !isTouchDevice) {
-      animateCustomCursor();
-      isAnimatingCustomCursor = true;
-    }
-
-
+    animateCustomCursor();
     const interactiveElements = document.querySelectorAll('a, button, .profile-pic, .social-btn');
     interactiveElements.forEach(element => {
-        // Desktop hover effects for glow
         element.addEventListener('mouseenter', () => {
-            if (!isTouchDevice) customCursorGlow.classList.add('interactive');
+            customCursorGlow.classList.add('interactive');
         });
         element.addEventListener('mouseleave', () => {
-            if (!isTouchDevice) customCursorGlow.classList.remove('interactive');
+            customCursorGlow.classList.remove('interactive');
         });
-        // Mobile/Touch specific active state for glow (managed by touchstart/touchend now)
     });
-
-    // Remove glow-follow from sections as it's now handled by custom-cursor-glow (or not needed)
     document.querySelectorAll('.section .glow-follow').forEach(el => el.remove());
 
-
     // --- Typing Text Effect ---
-    const changingRoleSpan = document.getElementById('changing-role');
-    const roles = [
-        { text: "Editor", className: "role-editor" },
-        { text: "VFX & CGI Artist", className: "role-vfx-artist" },
-        { text: "Thumbnail Designer", className: "role-thumbnail-designer" },
-        { text: "Youtuber", className: "role-youtuber" }
-    ];
+    // roles are now set by Firebase data in updatePortfolioUI
     let roleIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
@@ -759,24 +1570,29 @@
     const pauseBeforeType = 500;
 
     function typeEffect() {
-        if (!changingRoleSpan) {
-            console.error("Element with ID 'changing-role' not found. Typing effect will not start.");
+        const changingRoleSpan = document.getElementById('changing-role');
+        // Ensure window.roles is populated by Firestore before starting
+        if (!changingRoleSpan || !window.roles || window.roles.length === 0) {
+            console.warn("Roles data is empty or not loaded yet for typewriter. Retrying in 500ms.");
+            changingRoleSpan.textContent = "Loading..."; // Fallback text
+            window.typeEffectRunning = false; // Set flag to false so it can be restarted
+            setTimeout(typeEffect, 500); // Retry after a short delay
             return;
         }
 
-        const currentRoleData = roles[roleIndex];
+        const currentRoleData = window.roles[roleIndex];
         const currentRoleText = currentRoleData.text;
         const currentRoleClass = currentRoleData.className;
 
-        changingRoleSpan.className = ''; // Clear all existing classes
-        changingRoleSpan.classList.add(currentRoleClass); // Apply the current role's color class
+        changingRoleSpan.className = '';
+        changingRoleSpan.classList.add(currentRoleClass);
 
         if (isDeleting) {
             changingRoleSpan.textContent = currentRoleText.substring(0, charIndex - 1);
             charIndex--;
             if (charIndex === 0) {
                 isDeleting = false;
-                roleIndex = (roleIndex + 1) % roles.length;
+                roleIndex = (roleIndex + 1) % window.roles.length;
                 setTimeout(typeEffect, pauseBeforeType);
             } else {
                 setTimeout(typeEffect, deletingSpeed);
@@ -794,31 +1610,25 @@
     }
 
     // --- Scroll Animations & Blur Effect ---
-    // Intersection Observer for section fade-in animations
     const sections = document.querySelectorAll('.section');
     const observerOptions = {
-        root: null, /* viewport */
+        root: null,
         rootMargin: '0px',
-        threshold: 0.2 /* 20% of section visible to trigger */
+        threshold: 0.2
     };
-
     const sectionObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('is-in-view');
-                observer.unobserve(entry.target); /* Stop observing once animated */
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
-
     sections.forEach(section => {
         sectionObserver.observe(section);
     });
-
-    // Scroll-based blur for contact section
     const contactSection = document.querySelector('.contact-card-section');
     window.addEventListener('scroll', () => {
-        if (!contactSection) return; // Safeguard
         const rect = contactSection.getBoundingClientRect();
         if (rect.top < window.innerHeight / 1.5 && rect.bottom > window.innerHeight / 4) {
             contactSection.classList.add('scrolled-blur');
@@ -826,28 +1636,287 @@
             contactSection.classList.remove('scrolled-blur');
         }
     });
-
-    // Page blur on scroll UP
     let lastScrollY = window.scrollY;
-    const container = document.querySelector('.container');
-
+    const mainPortfolioContainer = document.getElementById('mainPortfolioContainer');
     window.addEventListener('scroll', () => {
-        if (!container) return; // Safeguard
         const currentScrollY = window.scrollY;
 
-        if (currentScrollY < lastScrollY && currentScrollY > 0) { // Scrolling up and not at the very top
-            container.classList.add('scrolled-up-blur');
+        if (currentScrollY < lastScrollY && currentScrollY > 0) {
+            mainPortfolioContainer.classList.add('scrolled-up-blur');
         } else {
-            container.classList.remove('scrolled-up-blur');
+            mainPortfolioContainer.classList.remove('scrolled-up-blur');
+        }
+        lastScrollY = currentScrollY;
+    });
+
+    // =========================================================
+    // --- Merged JavaScript for Video Work Section ---
+
+    // Data arrays are now populated by Firestore via updatePortfolioUI
+
+    // Function to setup carousel (now universal for both video carousels)
+    function setupCarousel(videoDataArray, cardsListId, prevBtnId, nextBtnId, dynamicHeadingId) {
+        const cardsList = document.getElementById(cardsListId);
+        const dynamicHeadingElement = document.getElementById(dynamicHeadingId);
+
+        // Ensure elements exist before trying to modify them
+        if (!cardsList || !dynamicHeadingElement) {
+            console.error(`Carousel elements not found for ${cardsListId}`);
+            return;
         }
 
-        lastScrollY = currentScrollY; // Update last scroll position
+        cardsList.innerHTML = ''; /* Clear existing content */
+
+        const isShorts = cardsList.classList.contains('shorts-cards');
+        const aspectRatioMultiplier = isShorts ? (16 / 9) : (9 / 16);
+        const verticalPadding = 80;
+
+        videoDataArray.forEach((data, index) => {
+            // Convert YouTube or Google Drive URL to embeddable format
+            let embedUrl = data.url;
+            if (data.url.includes('youtube.com/watch?v=')) {
+                embedUrl = data.url.replace('watch?v=', 'embed/');
+            } else if (data.url.includes('youtu.be/')) {
+                embedUrl = data.url.replace('youtu.be/', 'youtube.com/embed/');
+            } else if (data.url.includes('youtube.com/shorts/')) {
+                embedUrl = data.url.replace('youtube.com/shorts/', 'youtube.com/embed/');
+            } else if (data.url.includes('drive.google.com/file/d/')) {
+                const fileIdMatch = data.url.match(/file\/d\/([a-zA-Z0-9_-]+)/);
+                if (fileIdMatch && fileIdMatch[1]) {
+                    embedUrl = `https://www.drive.google.com/file/d/${fileIdMatch[1]}/preview`;
+                } else {
+                    console.warn(`Could not extract Google Drive file ID from URL: ${data.url}`);
+                    embedUrl = 'about:blank'; // Fallback for invalid Drive URL
+                }
+            } else {
+                console.warn(`Unsupported video URL format: ${data.url}. Displaying as is.`);
+            }
+
+            const li = document.createElement("li");
+            li.innerHTML = `<iframe src="${embedUrl}?controls=1&modestbranding=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen onerror="this.onerror=null;this.src='about:blank'; alert('Video failed to load: ${data.heading}. Check URL and sharing settings.');"></iframe>`; // Added onerror
+            cardsList.appendChild(li);
+
+            setTimeout(() => {
+                li.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            }, index * 100);
+        });
+
+        const cards = cardsList.querySelectorAll('li');
+        let current = 0; // Reset current video to first one when data updates
+
+        function updateCarousel() {
+            cards.forEach((card, index) => {
+                card.classList.remove('active', 'left', 'right');
+                if (index === current) {
+                    card.classList.add('active');
+                } else if (index === current - 1) {
+                    card.classList.add('left');
+                } else if (index === current + 1) {
+                    card.classList.add('right');
+                }
+            });
+
+            if (dynamicHeadingElement && videoDataArray[current]) {
+                dynamicHeadingElement.textContent = videoDataArray[current].heading;
+            } else {
+                dynamicHeadingElement.textContent = ''; // Clear heading if no video
+            }
+
+            const activeCard = cards[current];
+            if (activeCard) {
+                const activeCardComputedHeight = activeCard.offsetWidth * aspectRatioMultiplier;
+                cardsList.style.height = `${activeCardComputedHeight + verticalPadding}px`;
+            } else {
+                cardsList.style.height = '450px'; // Fallback height if no active card
+            }
+        }
+
+        const prevBtn = document.getElementById(prevBtnId);
+        const nextBtn = document.getElementById(nextBtnId);
+
+        if (prevBtn) {
+            prevBtn.onclick = () => {
+                if (current > 0) current--;
+                updateCarousel();
+            };
+        }
+        if (nextBtn) {
+            nextBtn.onclick = () => {
+                if (current < cards.length - 1) current++;
+                updateCarousel();
+            };
+        }
+
+        // Initialize carousel or reset if data changes
+        if (videoDataArray.length > 0) {
+            current = 0; // Reset current video to first one
+            updateCarousel();
+        } else {
+            cardsList.innerHTML = '<p style="text-align: center; color: #aaa; margin-top: 50px;">No videos available.</p>';
+            dynamicHeadingElement.textContent = '';
+            cardsList.style.height = '200px'; // Adjust height for no content
+        }
+    }
+
+    // =========================================================
+    // --- Merged JavaScript for Thumbnail Designs Section ---
+
+    function populateGrid() {
+        const grid = document.getElementById('full-thumbnail-grid');
+        const modal = document.getElementById('thumbnailModal');
+        const modalImg = document.getElementById('img01');
+        const captionText = document.getElementById('caption');
+        const closeBtn = document.querySelector('#thumbnailModal .thumbnail-close-button');
+
+        if (!grid) {
+            console.error("Thumbnail grid element not found in the DOM.");
+            return;
+        }
+
+        grid.innerHTML = '';
+        if (window.allThumbnailsData.length === 0) {
+            grid.innerHTML = '<p style="text-align: center; color: #aaa; margin-top: 50px;">No thumbnail designs available.</p>';
+            return;
+        }
+
+        window.allThumbnailsData.forEach((thumb, index) => {
+            const gridItem = document.createElement('div');
+            gridItem.classList.add('grid-item');
+            gridItem.style.animationDelay = `${index * 0.08}s`;
+
+            gridItem.innerHTML = `
+                <div class="grid-item-image-wrapper">
+                    <img src="${thumb.src}" alt="${thumb.title}" onerror="this.onerror=null;this.src='https://placehold.co/1280x720/555555/FFFFFF?text=Image+Not+Found';">
+                </div>
+                <h3>${thumb.title}</h3>
+                <p>${thumb.description}</p>
+            `;
+            gridItem.addEventListener('click', () => {
+                if (modal && modalImg && captionText) {
+                    modal.style.display = 'block';
+                    modalImg.src = thumb.src;
+                    modalImg.onerror = () => { this.onerror=null;this.src='https://placehold.co/1280x720/555555/FFFFFF?text=Image+Not+Found'; }; // Fallback for modal image
+                    captionText.innerHTML = `<h3>${thumb.title}</h3><p>${thumb.description}</p>`;
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling on main page
+                }
+            });
+            grid.appendChild(gridItem);
+        });
+
+        if (modal && closeBtn) {
+            closeBtn.onclick = function() {
+                modal.style.display = "none";
+                document.body.style.overflow = 'auto';
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                    document.body.style.overflow = 'auto';
+                }
+            };
+        }
+    }
+
+
+    // =========================================================
+    // --- Main Page Logic for Section Switching ---
+    const videoWorkSection = document.getElementById('videoWorkSection');
+    const thumbnailDesignSection = document.getElementById('thumbnailDesignSection');
+    const viewVideoWorkBtn = document.getElementById('viewVideoWorkBtn');
+    const viewThumbnailDesignsBtn = document.getElementById('viewThumbnailDesignsBtn');
+    const backToPortfolioFromVideoBtn = document.getElementById('backToPortfolioFromVideo');
+    const backToPortfolioFromThumbnailBtn = document.getElementById('backToPortfolioFromThumbnail');
+
+    // Function to show/hide sections
+    function showSection(sectionToShow, callback = null) {
+        // Hide all major content sections
+        mainPortfolioContainer.style.display = 'none';
+        videoWorkSection.style.display = 'none';
+        thumbnailDesignSection.style.display = 'none';
+        document.body.style.overflow = 'auto'; // Ensure scrolling is enabled for new section
+
+        // Show the requested section
+        sectionToShow.style.opacity = '0';
+        sectionToShow.style.transform = 'translateY(50px)';
+        sectionToShow.style.display = 'block'; // Make it visible before animation
+
+        requestAnimationFrame(() => {
+            sectionToShow.style.opacity = '1';
+            sectionToShow.style.transform = 'translateY(0)';
+            sectionToShow.style.animation = 'fadeInPage 1s ease-out forwards';
+        });
+
+        // Scroll to top of the new section for better UX
+        sectionToShow.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Execute callback if provided (for carousel/grid initialization)
+        if (callback) {
+            callback();
+        }
+    }
+
+    // Function to return to main portfolio
+    function showMainPortfolio() {
+        videoWorkSection.style.display = 'none';
+        thumbnailDesignSection.style.display = 'none';
+        mainPortfolioContainer.style.display = 'block'; // Show main portfolio
+        document.body.style.overflow = 'auto'; // Re-enable scrolling for main page
+        mainPortfolioContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Hide thumbnail modal if it's open when returning to main portfolio
+        const thumbnailModalCheck = document.getElementById('thumbnailModal');
+        if (thumbnailModalCheck && thumbnailModalCheck.style.display === 'block') {
+            thumbnailModalCheck.style.display = 'none';
+        }
+    }
+
+    // Event Listeners for buttons
+    viewVideoWorkBtn.addEventListener('click', () => {
+        showSection(videoWorkSection, () => {
+            // Pass the window.shortsVideosData and window.longformVideosData which are updated by Firebase
+            setupCarousel(window.shortsVideosData, 'shorts-cards', 'shorts-prev', 'shorts-next', 'shorts-dynamic-heading');
+            setupCarousel(window.longformVideosData, 'longform-cards', 'longform-prev', 'longform-next', 'longform-dynamic-heading');
+        });
+    });
+
+    viewThumbnailDesignsBtn.addEventListener('click', () => {
+        showSection(thumbnailDesignSection, () => {
+            // Pass the window.allThumbnailsData which is updated by Firebase
+            populateGrid();
+        });
+    });
+
+    backToPortfolioFromVideoBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        showMainPortfolio();
+    });
+
+    backToPortfolioFromThumbnailBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        showMainPortfolio();
     });
 
 
     // Initial page load animations and setups
     window.addEventListener('load', () => {
-      setTimeout(typeEffect, 100); // Start typing effect after slight delay
+      animateParticles();
+
+      for (let i = 0; i < 100; i++) {
+        createParticle(
+          Math.random() * w,
+          Math.random() * h
+        );
+      }
+
+      // typeEffect will be called by updatePortfolioUI (after Firebase data loads)
+      // or will retry if data not loaded
+      // setTimeout(typeEffect, 100); // Removed initial call, it's handled by updatePortfolioUI or its retry mechanism
+
+      // Initially show the main portfolio container and hide others
+      mainPortfolioContainer.style.display = 'block';
+      videoWorkSection.style.display = 'none';
+      thumbnailDesignSection.style.display = 'none';
     });
   </script>
 </body>
